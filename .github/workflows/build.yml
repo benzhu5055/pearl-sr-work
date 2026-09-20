@@ -7,21 +7,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Zig
-        uses: mlugg/setup-zig@v1
-        with:
-          version: "0.14.1"
+      - name: Download Zig 0.14.1
+        run: |
+          Invoke‑WebRequest -Uri "https://ziglang.org/download/0.14.1/zig-windows-x86_64-0.14.1.zip" -OutFile "zig.zip"
+          Expand‑Archive zig.zip -DestinationPath "C:\"
+          echo "C:\zig-windows-x86_64-0.14.1" | Out‑File -FilePath $env:GITHUB_PATH -Append
 
       - name: Build dispatch
-        run: zig build -Doptimize=ReleaseSafe run-dispatch
+        run: zig build -Doptimize=ReleaseSafe run‑dispatch
 
       - name: Build gameserver
-        run: zig build -Doptimize=ReleaseSafe run-gameserver
+        run: zig build -Doptimize=ReleaseSafe run‑gameserver
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload‑artifact@v4
         with:
-          name: server-windows
-          path: zig-out/bin/*.exe
+          name: server‑windows
+          path: zig‑out/bin/*.exe
+
 
 
