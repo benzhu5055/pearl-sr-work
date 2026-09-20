@@ -6,17 +6,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup Zig
-        uses: gha‑setup‑zig/setup‑zig@v2
+        uses: marler8997/setup-zig@v2
         with:
-          zig‑version: "0.14.1"
+          zig-version: "0.14.1"
+
       - name: Build dispatch
-        run: zig build -Doptimize=ReleaseSafe -Dtarget=x86_64‑windows‑gnu run‑dispatch
+        run: zig build -Doptimize=ReleaseSafe -Dtarget=x86_64-windows-gnu run-dispatch
+
       - name: Build gameserver
-        run: zig build -Doptimize=ReleaseSafe -Dtarget=x86_64‑windows‑gnu run‑gameserver
+        run: zig build -Doptimize=ReleaseSafe -Dtarget=x86_64-windows-gnu run-gameserver
+
       - name: Upload artifacts
-        uses: actions/upload‑artifact@v4
+        uses: actions/upload-artifact@v4
         with:
-          name: server‑windows
-          path: zig‑out/**/*.exe
+          name: server-windows
+          path: zig-out/bin/*.exe
+
 
